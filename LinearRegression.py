@@ -3,6 +3,9 @@ import numpy as np
 
 
 def calculate_cost(X, y, pred):
+    """
+    Cost function
+    """
     #pred = X.dot(theta)
     from sklearn.metrics import mean_squared_error
     #print pred.shape, y.shape
