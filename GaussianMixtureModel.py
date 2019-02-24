@@ -1,3 +1,8 @@
+"""
+    Implementations of Gibbs Samplers.
+    0. Chromatic Gibbs Sampler
+    1. Collapsed Gibbs Sampler
+"""
 from itertools import cycle
 
 import numpy as np
@@ -5,6 +10,11 @@ from matplotlib import pyplot as plt
 
 
 def sample_instance_collapsed(i):
+    """Sample single instance of Collapsed Gibbs Sampler.
+    Args:
+        i: Input single sample instance.
+    Returns: Drawn samples from current instance.
+    """
     p = [0] * K
     for k in range(K):
         p[k] = (float(assign[k] + alpha[k])) * (1.0 / ((2 * np.pi * (sigma ** 2)) ** (D / 2))) * \
@@ -23,6 +33,10 @@ def sample_mean():
 
 
 def collapsed_gibbs_sampler(iterations=10):
+    """Implementation of Collapsed Gibbs Sampler.
+    Args:
+        iterations: Number of iterations for sampling.
+    """
     for iteration in range(iterations):
         for i in range(N):
             k_i = z[i]
@@ -35,6 +49,11 @@ def collapsed_gibbs_sampler(iterations=10):
 
 
 def sample_instance_chromatic(i):
+    """Sample single instance of Chromatic Gibbs Sampler.
+    Args:
+        i: Input single sample instance.
+    Returns: Drawn samples from current instance.
+    """
     p = [0] * K
     for k in range(K):
         p[k] = (1.0 / ((2 * np.pi * (sigma ** 2)) ** (D / 2))) * \
@@ -45,6 +64,12 @@ def sample_instance_chromatic(i):
 
 
 def chromatic_gibbs_sampler(iterations=10):
+    """Implementation of Chromatic Gibbs Sampler.
+    
+    Args:
+        iterations: Number of itetrations for sampling.
+    Returns: None
+    """
     for iteration in range(iterations):
         for i in range(N):
             z[i] = sample_instance_chromatic(i)
@@ -64,6 +89,9 @@ def plot_data(axis, title):
 
 
 def random_initialize():
+    """
+    Initialize sampling parameters, inputs, and outputs.
+    """
     global sigma, alpha, zeta, K, D, X, N, z, assign, random_state, mu
     sigma = 1.0
     alpha = [1.0, 1.0, 1.0]
